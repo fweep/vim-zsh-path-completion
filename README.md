@@ -33,12 +33,24 @@ Via [pathogen.vim](https://github.com/tpope/vim-pathogen):
     cd ~/.vim/bundle
     git clone git://github.com/fweep/vim-zsh-path-completion.git
 
+Mappings
+--------
+
+To suppress the key mapping:
+
+    let g:zsh_path_completion_suppress_mappings = 1
+
+To provide your own mapping, bind to `<Plug>ZshExpandPath`.  The default
+is:
+
+    cmap <C-s> <Plug>ZshPathComplete
+
 Limitations/Bugs
 ----------------
 
 It doesn't understand context.  Whereas Vim builtins like `:edit` know
 that they need a filename argument, and only do `<Tab>` completion when
-appropriate, this will try to expand whatever token it there when you
+appropriate, this will try to expand whatever token is there when you
 hit `<C-s>`.
 
 It also doesn't handle quotes/spaces/special characters.  That should be
