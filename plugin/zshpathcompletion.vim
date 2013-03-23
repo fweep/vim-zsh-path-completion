@@ -14,24 +14,40 @@ function! s:expand_path_component(path_component)
   return split(matches, '\n')
 endfunction
 
-function! s:index_of_longest_match(matches)
-  let baseline = a:matches[0]
-  if baseline[-1:] == '/'
-    return baseline
-  endif
-  let index_of_first_filename = strridx(baseline, '/') + 1
-  let offset_index = 0
-  for path in a:matches[1:]
-    let total_index = index_of_first_filename + offset_index
-    if total_index >= len(path)
-      break
+function! s:shortest_string_in_list(list)
+  let shortest_string = a:list[0]
+  for string in a:list[1:]
+    if len(string) < len(shortest_string)
+      let shortest_string = string
     endif
-    if path[total_index] != baseline[total_index]
-      break
-    endif
-    let offset_index += 1
   endfor
-  return index_of_first_filename + offset_index
+  return shortest_string
+endfunction
+
+function! s:all_string_indexes_match(list, index)
+  let character = a:list[0][a:index]
+  for string in a:list[1:]
+    if character != string[a:index]
+      return 0
+    endif
+  endfor
+  return 1
+endfunction
+
+function! s:longest_common_string_prefix(list)
+  let shortest_string = s:shortest_string_in_list(a:list)
+  let prefix = ""
+  for idx in range(0, len(shortest_string) - 1)
+    if !s:all_string_indexes_match(a:list, idx)
+      break
+    endif
+    let prefix .= shortest_string[idx]
+  endfor
+  return prefix
+endfunction
+
+function s:index_of_first_mismatch(matches)
+  return len(s:longest_common_string_prefix(a:matches))
 endfunction
 
 function! s:expand_path(path_components)
@@ -42,8 +58,8 @@ function! s:expand_path(path_components)
     if number_of_matches == 0
       break
     elseif number_of_matches > 1
-      let index_of_longest_match = s:index_of_longest_match(matches)
-      let current_path = matches[0][0:index_of_longest_match]
+      let index_of_first_mismatch = s:index_of_first_mismatch(matches)
+      let current_path = matches[0][0:(index_of_first_mismatch - 1)]
     else
       let current_path = matches[0]
       if isdirectory(current_path)
