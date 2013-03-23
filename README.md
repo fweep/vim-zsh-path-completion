@@ -53,11 +53,12 @@ that they need a filename argument, and only do `<Tab>` completion when
 appropriate, this will try to expand whatever token is there when you
 hit `<C-s>`.
 
-It also doesn't handle quotes/spaces/special characters.  That should be
-fixable.
+It doesn't handle quotes/spaces/special characters.  That should be fixable.
 
-If a component in the middle of the path is ambiguous, it doesn't work
-at the moment.
+If a component in the middle of the path is ambiguous, it will discard
+everything after the unambiguous prefix (zsh will expand the common
+portion and position the cursor at the first differing character,
+leaving the rest of the path string intact).
 
 `<C-s>` only works on the end of the command line; if you move the
 cursor to the middle and invoke it, you won't get good results.
