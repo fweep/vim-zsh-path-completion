@@ -73,10 +73,19 @@ function! s:ZshExpandPath()
   return new_command_line
 endfunction
 
-if (!exists('g:zsh_path_completion_suppress_mappings') ||
-      \ !g:zsh_path_completion_suppress_mappings) &&
-      \ (!hasmapto('<Plug>ZshPathComplete', 'c') &&
-      \ '' == mapcheck('<C-s>', 'c'))
+function! s:has_key_map()
+  return hasmapto('<Plug>ZshPathComplete', 'c') || mapcheck('<C-s>', 'c') != ''
+endfunction
+
+function! s:suppress_key_map()
+  return exists('g:zsh_path_completion_suppress_mappings') && g:zsh_path_completion_suppress_mappings
+endfunction
+
+function! s:should_map_key()
+  return !s:suppress_key_map() && !s:has_key_map()
+endfunction
+
+if s:should_map_key()
   cmap <C-s> <Plug>ZshPathComplete
 endif
 
