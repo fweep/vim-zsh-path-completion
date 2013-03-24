@@ -3,11 +3,11 @@
 " Author: Jim Stewart <http://https://github.com/fweep>
 " Version: 0.1
 
-if exists('g:loaded_zsh_path_complation') || &cp || v:version < 700
+if exists('g:loaded_zsh_path_completion') || &cp || v:version < 700
   finish
 endif
 
-let g:loaded_zsh_path_complation = 1
+let g:loaded_zsh_path_completion = 1
 
 function! s:expand_path_component(path_component)
   let matches = glob(a:path_component . '*')
