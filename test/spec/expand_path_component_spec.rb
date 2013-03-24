@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "s:expand_path_component" do
 
-  let!(:snr) { VIM.command("echo g:zsh_path_completion_SNR") }
+  let!(:sid) { VIM.command("echo g:zsh_path_completion_SID") }
 
   before do
     FileUtils.mkdir_p "foo/bar/b/blah"
@@ -15,7 +15,7 @@ describe "s:expand_path_component" do
   end
 
   def expand_path_component(path_component)
-    VIM.command("echo #{snr}expand_path_component('#{path_component}')")
+    VIM.command("echo #{sid}expand_path_component('#{path_component}')")
   end
 
   it "expands unambiguous top-level directory" do

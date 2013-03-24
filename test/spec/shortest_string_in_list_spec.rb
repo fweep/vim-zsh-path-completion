@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe "s:shortest_string_in_list" do
 
-  let!(:snr) { VIM.command("echo g:zsh_path_completion_SNR") }
+  let!(:sid) { VIM.command("echo g:zsh_path_completion_SID") }
 
   def shortest_string_in_list(list)
-    VIM.command("echo #{snr}shortest_string_in_list(#{list})")
+    VIM.command("echo #{sid}shortest_string_in_list(#{list})")
   end
 
   def build_list(array)

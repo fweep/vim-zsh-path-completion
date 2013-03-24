@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe "s:all_string_indexes_match" do
 
-  let!(:snr) { VIM.command("echo g:zsh_path_completion_SNR") }
+  let!(:sid) { VIM.command("echo g:zsh_path_completion_SID") }
 
   def all_string_indexes_match(list, index)
-    VIM.command("echo #{snr}all_string_indexes_match(#{list}, #{index})")
+    VIM.command("echo #{sid}all_string_indexes_match(#{list}, #{index})")
   end
 
   def build_list(array)
