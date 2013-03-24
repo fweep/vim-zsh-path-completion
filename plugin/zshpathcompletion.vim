@@ -9,6 +9,14 @@ endif
 
 let g:loaded_zsh_path_completion = 1
 
+function! s:SID()
+  let fullname = expand("<sfile>")
+  return matchstr(fullname, '<SNR>\d\+_')
+endfunction
+
+" For testing.
+let g:zsh_path_completion_SNR = s:SID()
+
 function! s:expand_path_component(path_component)
   let matches = glob(a:path_component . '*')
   return split(matches, '\n')
