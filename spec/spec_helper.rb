@@ -8,9 +8,14 @@
 require 'vimrunner'
 require 'tmpdir'
 
+# FIXME: why isn't RSpec finding VimHelpers?
+require 'support/vim_helpers'
+
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.order = 'random'
+
+  config.include VimHelpers
 
   config.before :suite do
     VIM = Vimrunner.start
@@ -30,5 +35,4 @@ RSpec.configure do |config|
       end
     end
   end
-
 end

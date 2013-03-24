@@ -19,29 +19,23 @@ describe "s:expand_path_component" do
   end
 
   it "expands unambiguous top-level directory" do
-    expand_path_component("f").should == path_list("foo")
+    expand_path_component("f").should == build_list(%w{foo})
   end
 
   it "expands unambiguous nested directory" do
-    expand_path_component("foo/b").should == path_list("foo/bar")
+    expand_path_component("foo/b").should == build_list(%w{foo/bar})
   end
 
   it "expands ambiguous nested directories" do
     dirs = %w{foo/bar/b foo/bar/baz foo/bar/bzz}
-    expand_path_component("foo/bar/b").should == path_list(*dirs)
+    expand_path_component("foo/bar/b").should == build_list(dirs)
   end
 
   it "descends with trailing /" do
-    expand_path_component("foo/").should == path_list("foo/bar")
+    expand_path_component("foo/").should == build_list(%w{foo/bar})
   end
 
   it "does not descend on full match" do
-    expand_path_component("foo").should == path_list("foo")
+    expand_path_component("foo").should == build_list(%w{foo})
   end
-end
-
-private
-
-def path_list(*args)
-  "[" + args.map {|a| "'#{a}'"}.join(', ') + "]"
 end

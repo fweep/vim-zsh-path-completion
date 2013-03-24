@@ -8,10 +8,6 @@ describe "s:shortest_string_in_list" do
     VIM.command("echo #{sid}shortest_string_in_list(#{list})")
   end
 
-  def build_list(array)
-    "[" + array.map {|a| "'#{a}'"}.join(', ') + "]"
-  end
-
   it "finds the shortest when first" do
     list = build_list(%w{foo blammo something})
     shortest_string_in_list(list).should == "foo"

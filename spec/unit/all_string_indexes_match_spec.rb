@@ -8,10 +8,6 @@ describe "s:all_string_indexes_match" do
     VIM.command("echo #{sid}all_string_indexes_match(#{list}, #{index})")
   end
 
-  def build_list(array)
-    "[" + array.map {|a| "'#{a}'"}.join(', ') + "]"
-  end
-
   it "when first characters match" do
     list = build_list(%w{then top truck})
     all_string_indexes_match(list, 0).should == "1"

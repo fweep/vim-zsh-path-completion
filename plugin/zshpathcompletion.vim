@@ -14,7 +14,6 @@ function! s:SID()
   return matchstr(fullname, '<SNR>\d\+_')
 endfunction
 
-" For testing.
 let g:zsh_path_completion_SID = s:SID()
 
 function! s:expand_path_component(path_component)
