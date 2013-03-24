@@ -14,7 +14,7 @@ RSpec.configure do |config|
 
   config.before :suite do
     VIM = Vimrunner.start
-    plugin_path = File.expand_path('../../..', __FILE__)
+    plugin_path = File.expand_path('../..', __FILE__)
     VIM.add_plugin(plugin_path, 'plugin/zshpathcompletion.vim')
   end
 
