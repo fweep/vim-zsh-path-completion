@@ -19,9 +19,12 @@ Spork.prefork do
     #   spork will need to be restarted.  it'd be better to bounce
     #   it here, but mvim doesn't run headlessly and restarts suck.
     # config.before :suite do
-      # FIXME: osx-only (and possibly darwinports-only) config right now.
-      # VIM = Vimrunner.start
-      VIM = Vimrunner::Server.new("/opt/local/bin/mvim").start
+      if /darwin/ =~ RUBY_PLATFORM
+        # FIXME: forcing mvim due to problems with Vimrunner + vim in OSX
+        VIM = Vimrunner::Server.new("mvim").start
+      else
+        VIM = Vimrunner.start
+      end
       plugin_path = File.expand_path('../..', __FILE__)
       VIM.add_plugin(plugin_path, 'plugin/zshpathcompletion.vim')
     # end
