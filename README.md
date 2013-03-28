@@ -68,6 +68,19 @@ I hope to address some of these issues.  Soliciting feedback for now.
 Please file a [GitHub
 issue](https://github.com/fweep/vim-zsh-path-completion/issues) if you find bugs.
 
+A note on clutter
+-----------------
+
+I'm not happy about all the Ruby stuff in the top-level directory.  It's
+there because [Bundler](http://gembundler.com/) will not allow you to
+monitor paths above its root, so I can't use a relative path to
+`watch()` for changes in the `plugin` directory.  Bundler also won't
+follow symlinks.  If you install the plugin with
+[pathogen](https://github.com/tpope/vim-pathogen) (or another Vim package
+handler), it doesn't really matter that the directory is cluttered up.
+If you don't use pathogen, well...you should.  I'll move everything to a
+single `test` directory once I figure out how to make Bundler happy.
+
 Acknowledgements
 ----------------
 
