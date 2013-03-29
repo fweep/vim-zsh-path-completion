@@ -103,4 +103,22 @@ describe "s:expand_path" do
     end
   end
 
+  describe "with nested directories" do
+    let(:top_dirnames) { ["src", "tmp"] }
+    before { top_dirnames.each {|d| FileUtils.mkdir_p(d) } }
+    describe "where the second partially matches" do
+      let(:mid_dirnames) { ["pants", "parts"] }
+      before { mid_dirnames.each {|d| FileUtils.mkdir_p("src/#{d}") } }
+      it "expands the common prefix" do
+        path_components = build_list(%w{s p})
+        expand_path(path_components).should == "src/pa"
+      end
+      it "expands the common prefix with a file" do
+        FileUtils.touch("src/pants/foo")
+        path_components = build_list(%w{s p f})
+        expand_path(path_components).should == "src/pa"
+      end
+    end
+  end
+
 end

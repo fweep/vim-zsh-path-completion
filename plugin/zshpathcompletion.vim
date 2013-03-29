@@ -67,6 +67,10 @@ function! s:expand_path(path_components)
     elseif number_of_matches > 1
       let index_of_first_mismatch = s:index_of_first_mismatch(matches)
       let current_path = matches[0][0:(index_of_first_mismatch - 1)]
+      break
+      " if path_component == 'p'
+      "   return [index_of_first_mismatch, current_path, matches, path_component]
+      " endif
     else
       let current_path = matches[0]
       if isdirectory(current_path)
